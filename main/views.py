@@ -1,11 +1,13 @@
 #base urls file
 
 from django.shortcuts import render
-from django.http import HttpResponse
+from .models import Task
 
 
 def index(request):
-    return render(request, 'main/index.html')
+    tasks = Task.objects.order_by('-id')[:5]
+    return render(request, 'main/index.html', {'title':'Main page', 'tasks':tasks})
+
 
 def about(request):
-    return HttpResponse("about")
+    return render(request, 'main/about.html')
